@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc= "http://www.springframework.org/schema/mvc"
+     xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+        <mvc:annotation-driven>
+        
+        <mvc:message-converters>
+        
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        
+        </mvc:message-converters>
+        
+        </mvc:annotation-driven>    
+        
+        
+        <!-- Provide support for component scanning DI(Controllers location) -->
+        <context:component-scan base-package="com.cts,com.dao"/>
+        
+        <context:property-placeholder location="classpath:mydb.properties"/>
+        <!-- View layers location -->
+        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        
+        <property name="prefix" value="/WEB-INF/ctsjsp/"/>
+        <property name="suffix" value=".jsp"/>
+        
+        
+        </bean>
+        
+        <bean id="database1"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${dburl}"/>
+        <property name="username" value="${dbuser}"/>
+        <property name="password" value="${dbpassword}"/>
+        
+        
+        
+        </bean>
+        
+        <bean id="dbconn" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="database1"></property>
+        
+        
+        </bean>
+        
+        <bean id="db21" class="com.dao.EmpJDBCController">
+        <property name="template1" ref="dbconn"></property>
+        
+        </bean>
+        <!-- I18N for reading properties files  -->
+        
+        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/ResourceBundle/login"/>
+        
+        
+        </bean>
+        <!-- Locale(lang) change interceptor to achieve i18n -->
+        <mvc:interceptors>
+        <mvc:interceptor>
+        <mvc:mapping path="/useri18n_hello"/>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" ></property>
+        
+        </bean>
+        
+        </mvc:interceptor>
+        </mvc:interceptors>
+        <!-- Cookie resolver to accept http headers -->
+        <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        </bean>
+        
+        </beans>
