@@ -51,9 +51,9 @@ public class EmpJDBCController {
 		
 	}
 	
-	public int update1(EmployeeBean p)
+	public int updateData(EmployeeBean p)
 	{
-		String sql3 = "UPDATE Emp2 SET salary = "+p.getSalary()+" WHERE name="+"'"+p.getName()+"'";
+		String sql3 = "UPDATE Emp2 SET salary = "+p.getUpdateSalary()+" WHERE name="+"'"+p.getUpdateName()+"'";
 		return template1.update(sql3);
 	
 	}

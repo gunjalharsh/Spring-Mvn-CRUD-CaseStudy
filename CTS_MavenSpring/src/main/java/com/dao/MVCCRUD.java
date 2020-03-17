@@ -32,7 +32,7 @@ public class MVCCRUD {
 		return "viewemps";
 	}
 	
-	@RequestMapping(value="/delete/{name}",method=RequestMethod.GET)
+	@RequestMapping(value="/delete/{name}/",method=RequestMethod.GET)
 public String deleteEmployee(EmployeeBean emp,@PathVariable("name") String name ) {
 		emp.setDeleteEmployee(name);
 		dao2.delete1(emp);
@@ -41,11 +41,20 @@ public String deleteEmployee(EmployeeBean emp,@PathVariable("name") String name 
 	}
 	
 	//DataUpdate
-	@RequestMapping(value="/update" , method=RequestMethod.GET)
+	@RequestMapping(value="/update" )
 	public String updateEmployee(EmployeeBean emp) {
 		
-		dao2.update1(emp);
+	return "UpdateForm";
+		
+	}   
+	
+	@RequestMapping(value="/updateData" , method=RequestMethod.GET)
+	public String updateEmployeeData(EmployeeBean emp) {
+		
+		dao2.updateData(emp);
+		System.out.println("Here");
 	return "redirect:/viewemps";
 		
 	}   
+	
 }

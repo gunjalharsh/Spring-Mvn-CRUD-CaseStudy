@@ -7,6 +7,20 @@ public class EmployeeBean {
 	String Phone;
 	String DeleteEmployee;
 	String UpdateEmployee;
+	String UpdateName;
+	String UpdateSalary;
+	public String getUpdateName() {
+		return UpdateName;
+	}
+	public void setUpdateName(String updateName) {
+		UpdateName = updateName;
+	}
+	public String getUpdateSalary() {
+		return UpdateSalary;
+	}
+	public void setUpdateSalary(String updateSalary) {
+		UpdateSalary = updateSalary;
+	}
 	String PhoneUpdate;
 	public String getPhone() {
 		return Phone;
